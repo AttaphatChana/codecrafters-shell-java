@@ -17,8 +17,8 @@ public class Main {
             String[] command = input.trim().split(" ");
             if (map.getOrDefault(command[0],100) == 1){
                 ///int i = command.length - 1;
-                String a = Arrays.asList(command).subList(1, command.length).stream()
-                        .reduce(" ", String::concat).trim();
+                String a = Arrays.asList(command).subList(1, command.length).stream().map(
+                        s -> s + " ").reduce("", String::concat).trim();
                 System.out.println(a);
             }else if (map.getOrDefault(input.trim(),100) == 0){
                 scanner.close();
