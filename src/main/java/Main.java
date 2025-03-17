@@ -10,6 +10,8 @@ public class Main {
         HashMap<String, Integer> map = new HashMap<>();
         map.put("echo", 1);
         map.put("exit 0",0);
+        map.put("type",2);
+        map.put("exit",3);
         while (true){
             System.out.print("$ ");
             //Scanner scanner = new Scanner(System.in);
@@ -23,6 +25,12 @@ public class Main {
             }else if (map.getOrDefault(input.trim(),100) == 0){
                 scanner.close();
                 break;
+            }else if (map.getOrDefault(command[0],100) == 2) {
+                if (map.containsKey(command[1])){
+                    System.out.println(command[1] + " is a shell builtin" );
+                }else{
+                    System.out.println(command[1] +": not found");
+                }
             }else{
                 System.out.println(input + ": command not found");
             }
