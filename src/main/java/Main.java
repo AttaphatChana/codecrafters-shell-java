@@ -43,6 +43,7 @@ public class Main {
                 for (String dir:paths) {
                     List<String> a = Files.walk(Paths.get(dir)).filter(Files::isDirectory)
                             .map(Path::toString).toList();
+                    System.out.println(a);
                     HashSet<String> b = new HashSet<>(a);
                     String ex = dir + command[1];
                     if (b.contains(ex)){
