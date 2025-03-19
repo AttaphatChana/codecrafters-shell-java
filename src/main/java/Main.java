@@ -43,16 +43,15 @@ public class Main {
                 for (String dir:paths) {
                     List<String> a = Files.walk(Paths.get(dir)).filter(Files::isDirectory)
                             .map(Path::toString).toList();
-                    System.out.println(a);
+                    //System.out.println(a);
                     HashSet<String> b = new HashSet<>(a);
                     String ex = dir + command[1];
                     if (b.contains(ex)){
                         System.out.println(command[1] + " is " + ex);
                         break;
-                    }else{
-                        System.out.println(command[1] +": not found");
                     }
                 }
+                System.out.println(command[1] +": not found");
                 if (!path.isBlank()){
                     if (map.containsKey(command[1])){
                         System.out.println(command[1] + " is a shell builtin" );
