@@ -15,7 +15,7 @@ public class Main {
         map.put("type",2);
         map.put("exit",3);
         String path = System.getenv("PATH");
-        HashMap<String, Integer> pathmap = new HashMap<>();
+        //HashMap<String, Integer> pathmap = new HashMap<>();
         String[] paths = path.trim().split(":");
 
 //        for (String dir:paths) {
@@ -30,7 +30,7 @@ public class Main {
             System.out.print("$ ");
             //Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
-            String[] command = input.trim().split(" ");
+            String[] command = input.trim().split("\\s+");
             if (map.getOrDefault(command[0],100) == 1){
                 ///int i = command.length - 1;
                 String a = Arrays.asList(command).subList(1, command.length).stream().map(
@@ -41,6 +41,7 @@ public class Main {
                 break;
             }else if (map.getOrDefault(command[0],100) == 2) {
                 String message = "";
+                //System.out.println("whattttt" + command[1]);
                 if (map.containsKey(command[1])) {
                     System.out.println(command[1] + " is a shell builtin");
                 } else {
