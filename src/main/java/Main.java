@@ -11,9 +11,9 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         HashMap<String, Integer> map = new HashMap<>();
         map.put("echo", 1);
-        map.put("exit 0",0);
-        map.put("type",2);
-        map.put("exit",3);
+        map.put("exit 0", 0);
+        map.put("type", 2);
+        map.put("exit", 3);
         String path = System.getenv("PATH");
         //HashMap<String, Integer> pathmap = new HashMap<>();
         String[] paths = path.trim().split(":");
@@ -24,22 +24,22 @@ public class Main {
 //            HashSet<String> b = new HashSet<>(a);
 //            b.contains(comm)
 //        }
-        
+
         File curDir = new File(".");
-        while (true){
+        while (true) {
             System.out.print("$ ");
             //Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             String[] command = input.trim().split("\\s+");
-            if (map.getOrDefault(command[0],100) == 1){
+            if (map.getOrDefault(command[0], 100) == 1) {
                 ///int i = command.length - 1;
                 String a = Arrays.asList(command).subList(1, command.length).stream().map(
                         s -> s + " ").reduce("", String::concat).trim();
                 System.out.println(a);
-            }else if (map.getOrDefault(input.trim(),100) == 0){
+            } else if (map.getOrDefault(input.trim(), 100) == 0) {
                 scanner.close();
                 break;
-            }else if (map.getOrDefault(command[0],100) == 2) {
+            } else if (map.getOrDefault(command[0], 100) == 2) {
                 String message = "";
                 //System.out.println("whattttt" + command[1]);
                 if (map.containsKey(command[1])) {
@@ -62,11 +62,9 @@ public class Main {
                     }
                 }
             }
-
-
-//            }else{
-//                System.out.println(input + ": command not found");
-//            }
+            else{
+                System.out.println(input + ": command not found");
+            }
 
         }
 
