@@ -40,18 +40,21 @@ public class Main {
                 scanner.close();
                 break;
             }else if (map.getOrDefault(command[0],100) == 2) {
+                String message = "";
                 for (String dir:paths) {
-                    List<String> a = Files.walk(Paths.get(dir)).filter(Files::isDirectory)
-                            .map(Path::toString).toList();
-                    //System.out.println(a);
-                    HashSet<String> b = new HashSet<>(a);
                     String ex = dir + command[1];
-                    if (b.contains(ex)){
-                        System.out.println(command[1] + " is " + ex);
+                    if (Files.exists(Path.of(ex))){
+                        //System.out.println(command[1] + " is " + ex);
+                        message = command[1] + " is " + ex;
                         break;
                     }
                 }
-                System.out.println(command[1] +": not found");
+                if (message.isBlank()){
+                    System.out.println(command[1] +": not found");
+                }else{
+                    System.out.println(message);
+                }
+
                 if (!path.isBlank()){
                     if (map.containsKey(command[1])){
                         System.out.println(command[1] + " is a shell builtin" );
