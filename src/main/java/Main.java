@@ -1,7 +1,9 @@
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -12,6 +14,18 @@ public class Main {
         map.put("exit 0",0);
         map.put("type",2);
         map.put("exit",3);
+        String path = System.getenv("PATH");
+        HashMap<String, Integer> pathmap = new HashMap<>();
+        String[] paths = path.trim().split(":");
+
+//        for (String dir:paths) {
+//            List<String> a = Files.walk(Paths.get(dir)).filter(Files::isDirectory)
+//                    .map(s -> s.getParent().getFileName().toString()).toList();
+//            HashSet<String> b = new HashSet<>(a);
+//            b.contains(comm)
+//        }
+        
+        File curDir = new File(".");
         while (true){
             System.out.print("$ ");
             //Scanner scanner = new Scanner(System.in);
@@ -26,11 +40,26 @@ public class Main {
                 scanner.close();
                 break;
             }else if (map.getOrDefault(command[0],100) == 2) {
-                if (map.containsKey(command[1])){
-                    System.out.println(command[1] + " is a shell builtin" );
-                }else{
-                    System.out.println(command[1] +": not found");
+                for (String dir:paths) {
+                    List<String> a = Files.walk(Paths.get(dir)).filter(Files::isDirectory)
+                            .map(Path::toString).toList();
+                    HashSet<String> b = new HashSet<>(a);
+                    String ex = dir + command[1];
+                    if (b.contains(ex)){
+                        System.out.println(command[1] + " is " + ex);
+                        break;
+                    }else{
+                        System.out.println(command[1] +": not found");
+                    }
                 }
+                if (!path.isBlank()){
+                    if (map.containsKey(command[1])){
+                        System.out.println(command[1] + " is a shell builtin" );
+                    }else{
+                        System.out.println(command[1] +": not found");
+                    }
+                }
+
             }else{
                 System.out.println(input + ": command not found");
             }
