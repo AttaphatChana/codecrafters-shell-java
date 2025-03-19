@@ -41,26 +41,31 @@ public class Main {
                 break;
             }else if (map.getOrDefault(command[0],100) == 2) {
                 String message = "";
-                for (String dir:paths) {
-                    String ex = dir + "/" + command[1];
-                    //System.out.println(ex);
-                    if (Files.exists(Path.of(ex))){
-                        //System.out.println(command[1] + " is " + ex);
-                        message = command[1] + " is " + ex;
-                        break;
+                if (map.containsKey(command[1])) {
+                    System.out.println(command[1] + " is a shell builtin");
+                } else {
+                    for (String dir : paths) {
+                        String ex = dir + "/" + command[1];
+                        //System.out.println(ex);
+                        if (Files.exists(Path.of(ex))) {
+                            //System.out.println(command[1] + " is " + ex);
+                            message = command[1] + " is " + ex;
+                            break;
+                        }
+
                     }
-
+                    if (message.isBlank()) {
+                        System.out.println(command[1] + ": not found");
+                    } else {
+                        System.out.println(message);
+                    }
                 }
-                if (message.isBlank()){
-                    System.out.println(command[1] +": not found");
-                }else{
-                    System.out.println(message);
-                }
-
-
-            }else{
-                System.out.println(input + ": command not found");
             }
+
+
+//            }else{
+//                System.out.println(input + ": command not found");
+//            }
 
         }
 
