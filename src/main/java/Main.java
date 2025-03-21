@@ -119,12 +119,12 @@ public class Main {
                                 if (i == 0){
                                     String[] c = name.split("/");
                                     System.out.println("woahh" + Arrays.toString(c));
-                                    System.out.println("Arg #" + i + ": " + c[c.length -1]);
-                                    System.out.println();
+//                                    System.out.println("Arg #" + i + ": " + c[c.length -1]);
+//                                    System.out.println();
 
 
                                 }else{
-                                    System.out.println("Arg #" + i + ": " + name);
+                                    //System.out.println("Arg #" + i + ": " + name);
                                 }
                                 i += 1;
 
