@@ -118,7 +118,7 @@ public class Main {
                                 //System.out.println(Arrays.toString(command));
                                 if (i == 0){
                                     String[] c = name.split("/");
-                                    System.out.println(c);
+                                    System.out.println("woahh" + Arrays.toString(c));
                                     System.out.println("Arg #" + i + ": " + c[c.length -1]);
                                     System.out.println();
 
