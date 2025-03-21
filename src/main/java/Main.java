@@ -46,7 +46,7 @@ public class Main {
             String ex = dir + "/" + command;
             if (Files.exists(Path.of(ex))) {
                 //ArrayList<String> ex1 = (ArrayList<String>) Arrays.stream(cmd).toList();
-                String ex1 = ex + " " + cmd;
+                String ex1 = command + " " + cmd;
                 String[] f_cmd = ex1.split("\\s+");
 //                System.out.println("exe");
 //                System.out.println(Arrays.toString(f_cmd));
