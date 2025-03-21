@@ -115,6 +115,7 @@ public class Main {
                         int i = 0;
                         if(exe_command(command[0],paths,a)){
                             for (String name : command){
+                                System.out.println(Arrays.toString(command));
                                 System.out.println("Arg #" + i + ": " + name);
                                 i += 1;
 
