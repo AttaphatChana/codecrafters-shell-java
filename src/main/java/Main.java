@@ -42,10 +42,11 @@ public class Main {
 //        return s.hasNext() ? s.next() : "";
     }
     public static boolean exe_command(String command, String[] paths, String cmd) throws IOException, InterruptedException {
-        for (String dir : paths) {
-            String ex = dir + "/" + command;
-            if (Files.exists(Path.of(ex))) {
+//        for (String dir : paths) {
+//            String ex = dir + "/" + command;
+//            if (Files.exists(Path.of(ex))) {
                 //ArrayList<String> ex1 = (ArrayList<String>) Arrays.stream(cmd).toList();
+        try{
                 String ex1 = command + " " + cmd;
                 String[] f_cmd = ex1.split("\\s+");
 //                System.out.println("exe");
@@ -54,9 +55,10 @@ public class Main {
                 System.out.println(execCmd(f_cmd));
 
                return true;
-            }
+            }catch (IOException e){
+            return false;
         }
-        return false;
+
     }
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
@@ -118,7 +120,7 @@ public class Main {
                                 //System.out.println(Arrays.toString(command));
                                 if (i == 0){
                                     String[] c = name.split("/");
-                                    System.out.println("woahh" + Arrays.toString(c));
+                                    //System.out.println("woahh" + Arrays.toString(c));
 //                                    System.out.println("Arg #" + i + ": " + c[c.length -1]);
 //                                    System.out.println();
 
