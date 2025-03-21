@@ -116,6 +116,11 @@ public class Main {
                         if(exe_command(command[0],paths,a)){
                             for (String name : command){
                                 System.out.println(Arrays.toString(command));
+                                if (i == 0){
+                                    String[] c = name.split("/");
+                                    System.out.println("Arg #" + i + ": " + c[c.length -1]);
+
+                                }
                                 System.out.println("Arg #" + i + ": " + name);
                                 i += 1;
 
