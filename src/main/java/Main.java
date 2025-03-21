@@ -1,11 +1,43 @@
-import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-import java.util.stream.Collectors;
+
 
 public class Main {
+    public static void find_command(String command, String[] paths) {
+        String message = "";
+        for (String dir : paths) {
+            String ex = dir + "/" + command;
+            if (Files.exists(Path.of(ex))) {
+                message = command + " is " + ex;
+                break;
+            }
+        }
+        if (message.isBlank()) {
+            System.out.println(command + ": not found");
+        } else {
+            System.out.println(message);
+        }
+    }
+    public static boolean exe_command(String command, String[] paths, String cmd) throws IOException, InterruptedException {
+        for (String dir : paths) {
+            String ex = dir + "/" + command;
+            if (Files.exists(Path.of(ex))) {
+                //ArrayList<String> ex1 = (ArrayList<String>) Arrays.stream(cmd).toList();
+                String ex1 = ex + " " + cmd;
+                String[] f_cmd = ex1.split("\\s+");
+//                System.out.println("exe");
+//                System.out.println(Arrays.toString(f_cmd));
+                Process process1 =Runtime.getRuntime().exec(f_cmd);
+                process1.waitFor();
+                //System.out.println("exe!");
+
+               return true;
+            }
+        }
+        return false;
+    }
     public static void main(String[] args) throws Exception {
         // Uncomment this block to pass the first stage
         Scanner scanner = new Scanner(System.in);
@@ -25,46 +57,77 @@ public class Main {
 //            b.contains(comm)
 //        }
 
-        File curDir = new File(".");
+        //File curDir = new File(".");
         while (true) {
             System.out.print("$ ");
             //Scanner scanner = new Scanner(System.in);
             String input = scanner.nextLine();
             String[] command = input.trim().split("\\s+");
-            if (map.getOrDefault(command[0], 100) == 1) {
-                ///int i = command.length - 1;
-                String a = Arrays.asList(command).subList(1, command.length).stream().map(
-                        s -> s + " ").reduce("", String::concat).trim();
-                System.out.println(a);
-            } else if (map.getOrDefault(input.trim(), 100) == 0) {
+            int result = map.getOrDefault(command[0], 100);
+            if (map.getOrDefault(input.trim(), 100) == 0) {
                 scanner.close();
                 break;
-            } else if (map.getOrDefault(command[0], 100) == 2) {
-                String message = "";
-                //System.out.println("whattttt" + command[1]);
-                if (map.containsKey(command[1])) {
-                    System.out.println(command[1] + " is a shell builtin");
-                } else {
-                    for (String dir : paths) {
-                        String ex = dir + "/" + command[1];
-                        //System.out.println(ex);
-                        if (Files.exists(Path.of(ex))) {
-                            //System.out.println(command[1] + " is " + ex);
-                            message = command[1] + " is " + ex;
+            }
+            if (input.isBlank()){
+                //System.out.println("qwwjj");
+                continue;
+            }
+            switch (result) {
+                case 0:
+                    scanner.close();
+                    break;
+                case 1:
+                    String a = Arrays.asList(command).subList(1, command.length).stream().map(
+                            s -> s + " ").reduce("", String::concat).trim();
+                    System.out.println(a);
+                    break;
+                case 2:
+                    if (map.containsKey(command[1])) {
+                        System.out.println(command[1] + " is a shell builtin");
+                    } else {
+                        find_command(command[1],paths);
+                    }
+                    break;
+                case 100:
+                    a = Arrays.asList(command).subList(1, command.length).stream().map(
+                            s -> s + " ").reduce("", String::concat).trim();
+                    try{
+                        int i = 0;
+                        if(exe_command(command[0],paths,a)){
+                            for (String name : command){
+                                System.out.println("Arg #" + i + ": " + name);
+                                i += 1;
+
+                            }
+                        }else{
+                            System.out.println(command[0] + ": command not found");
                             break;
                         }
+                    }catch (IOException e){
+                        System.out.println(command[0] + ": command not found");
+                    }
 
-                    }
-                    if (message.isBlank()) {
-                        System.out.println(command[1] + ": not found");
-                    } else {
-                        System.out.println(message);
-                    }
-                }
+                    break;
             }
-            else{
-                System.out.println(input + ": command not found");
-            }
+//            if (map.getOrDefault(command[0], 100) == 1) {
+//                ///int i = command.length - 1;
+//                String a = Arrays.asList(command).subList(1, command.length).stream().map(
+//                        s -> s + " ").reduce("", String::concat).trim();
+//                System.out.println(a);
+//            } else if (map.getOrDefault(input.trim(), 100) == 0) {
+//                scanner.close();
+//                break;
+//            } else if (map.getOrDefault(command[0], 100) == 2) {
+//                //String message = "";
+//                if (map.containsKey(command[1])) {
+//                    System.out.println(command[1] + " is a shell builtin");
+//                } else {
+//                    find_command(command[1],paths);
+//                }
+//            }
+//            else{
+//                System.out.println(input + ": command not found");
+//            }
 
         }
 
