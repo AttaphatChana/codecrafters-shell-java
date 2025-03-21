@@ -31,8 +31,8 @@ public class Main {
             while (s.hasNextLine()) {
                 val.append(s.nextLine());
                 val.append("\n");
-                val.append(s.nextLine());
             }
+            val.setLength(val.length() - 1);
             return val.toString();
         } catch (IOException e){
             System.out.println(e);
