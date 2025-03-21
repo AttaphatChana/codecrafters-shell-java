@@ -1,4 +1,5 @@
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.*;
@@ -20,6 +21,26 @@ public class Main {
             System.out.println(message);
         }
     }
+    public static String execCmd(String[] cmd) throws java.io.IOException {
+        try {
+            Process proc = Runtime.getRuntime().exec(cmd);
+            java.io.InputStream is = proc.getInputStream();
+            java.util.Scanner s = new java.util.Scanner(is);
+            StringBuilder val = new StringBuilder();
+
+            while (s.hasNextLine()) {
+                val.append(s.nextLine());
+                val.append("\n");
+                val.append(s.nextLine());
+            }
+            return val.toString();
+        } catch (IOException e){
+            System.out.println(e);
+        return e.toString();
+    }
+//        java.util.Scanner s = new java.util.Scanner(Runtime.getRuntime().exec(cmd).getInputStream()).useDelimiter("\\A");
+//        return s.hasNext() ? s.next() : "";
+    }
     public static boolean exe_command(String command, String[] paths, String cmd) throws IOException, InterruptedException {
         for (String dir : paths) {
             String ex = dir + "/" + command;
@@ -29,9 +50,8 @@ public class Main {
                 String[] f_cmd = ex1.split("\\s+");
 //                System.out.println("exe");
 //                System.out.println(Arrays.toString(f_cmd));
-                Process process1 =Runtime.getRuntime().exec(f_cmd);
-                process1.waitFor();
-                //System.out.println("exe!");
+                //Process p =Runtime.getRuntime().exec(f_cmd);
+                System.out.println(execCmd(f_cmd));
 
                return true;
             }
@@ -105,6 +125,7 @@ public class Main {
                         }
                     }catch (IOException e){
                         System.out.println(command[0] + ": command not found");
+                        break;
                     }
 
                     break;
