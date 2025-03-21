@@ -120,8 +120,10 @@ public class Main {
                                     String[] c = name.split("/");
                                     System.out.println("Arg #" + i + ": " + c[c.length -1]);
 
+
+                                }else{
+                                    System.out.println("Arg #" + i + ": " + name);
                                 }
-                                System.out.println("Arg #" + i + ": " + name);
                                 i += 1;
 
                             }
